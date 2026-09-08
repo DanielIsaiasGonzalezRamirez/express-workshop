@@ -1,9 +1,17 @@
+const bodyParser = require("body-parser");
 const express = require('express');
 const app = express();
 const { pokemon } = require('./pokedex.json');
 
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended : true}));
+
 app.get("/", (req, res, next) => {
     return res.status(200).send("Bienvenido al Pokedex");
+});
+
+app.post("/pokemon:id", (req,res,next) => {
+    return res.status(200).send(req.body);
 });
 
 app.get('/pokemon', (req, res, next) => {
