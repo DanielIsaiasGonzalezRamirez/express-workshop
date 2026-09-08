@@ -12,27 +12,25 @@ app.get('/pokemon', (req, res, next) => {
 
 app.get('/pokemon/:id([0-9]{1,3})', (req, res, next) => {
     const id = req.params.id - 1;
-    if (id >= 0 && id <= 150) {
-        return res.status(200).send(pokemon[id]);
-    }
-    else {
-        return res.status(404).send("Pokémon no encontrado");
-    }
+    (id >= 0 && id <= 150) ? 
+        res.status(200).send(pokemon[id]) : 
+        res.status(404).send("Pokémon no encontrado");
 });
 
 app.get('/pokemon/:name([A-Za-z]+)', (req, res, next) => {
+
+    //Operador ternario: Condicion ? valor si verdadero : valor si falso
+
     const name = req.params.name;
     const pk = pokemon.filter((p) => {
-        if(p.name.toUpperCase() = name.toUpperCase()) {
-            return p;
-        }
+        return (p.name.toUpperCase() = name.toUpperCase()) && p;
     });
     
-    if(pk.length > 0){
-        return res.status(200).send(pk);
-    }
+    console.log(pk);
 
-    return res.status(404).send("Pokémon no encontrado");
+    (pk.length > 0) ? 
+    res.status(200).send(pk) : 
+    res.status(404).send("Pokémon no encontrado");
 });
 
 app.listen(process.env.PORT || 3000, () => {
